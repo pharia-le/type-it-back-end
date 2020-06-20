@@ -1,5 +1,5 @@
 class TestsController < ApplicationController
-  before_action :set_test, only: [:show, :update, :destroy]
+  # before_action :set_test, only: [:show]
 
   def index
     tests = Test.all
@@ -13,6 +13,7 @@ class TestsController < ApplicationController
     # options = {
     #   include: [:bird, :location]
     # }
+    test = Test.find_by_id(params[:id])
     render json: TestSerializer.new(test)#, options)
   end
   
@@ -40,9 +41,9 @@ class TestsController < ApplicationController
   # end
 
   private
-    def set_test
-      test = Test.find_by_id(params[:id])
-    end
+    # def set_test
+    #   test = Test.find_by_id(params[:id])
+    # end
 
     def test_params
       params.require(:test).permit(:name, :content)
