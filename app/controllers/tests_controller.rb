@@ -3,26 +3,28 @@ class TestsController < ApplicationController
 
   def index
     tests = Test.all
-    # options = {
-    #   include: [:bird, :location]
-    # }
-    render json: TestSerializer.new(tests)#, options)
+    options = {
+      include: [:scores]
+    }
+    render json: TestSerializer.new(tests, options)
   end
 
   def show
-    # options = {
-    #   include: [:bird, :location]
-    # }
+    options = {
+      include: [:scores]
+    }
     test = Test.find_by_id(params[:id])
-    render json: TestSerializer.new(test)#, options)
+    render json: TestSerializer.new(test, options)
   end
   
 
   def create
     test = Test.new(test_params)
-
+    options = {
+      include: [:scores]
+    }
     if test.save
-      render json: TestSerializer.new(test)#, status: :created, location: test
+      render json: TestSerializer.new(test, options) #status: :created, location: test
     else
       render json: test.errors#, status: :unprocessable_entity
     end
