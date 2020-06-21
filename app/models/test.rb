@@ -1,4 +1,5 @@
 class Test < ApplicationRecord
+    has_many :scores
     validates :name, presence: true, uniqueness: true
     validates :content, presence: true
     validates :content, length: { minimum: 500 }
