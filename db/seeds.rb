@@ -8,7 +8,14 @@
 
 10.times do
     Test.create(
-    name: Faker::Book.title,
-    content: Faker::Lorem.paragraph_by_chars(number: 525, supplemental: false)
+        name: Faker::Book.title,
+        content: Faker::Lorem.paragraph_by_chars(number: 525, supplemental: false)
+    )
+end
+
+20.times do
+    Score.create(
+        wpm: rand(30..80),
+        test_id: Test.all.map {|t| t.id}.sample
     )
 end
