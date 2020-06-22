@@ -3,28 +3,19 @@ class TestsController < ApplicationController
 
   def index
     tests = Test.all
-    options = {
-      include: [:scores]
-    }
-    render json: TestSerializer.new(tests, options)
+    render json: tests.as_json(include: {scores: {only: [:id,:cpm,:wpm]}})
   end
 
   def show
-    options = {
-      include: [:scores]
-    }
     test = Test.find_by_id(params[:id])
-    render json: TestSerializer.new(test, options)
+    render json: test.as_json(include: {scores: {only: [:id,:cpm,:wpm]}})
   end
   
 
   def create
     test = Test.new(test_params)
-    options = {
-      include: [:scores]
-    }
     if test.save
-      render json: TestSerializer.new(test, options) #status: :created, location: test
+      render json: test.as_json(include: {scores: {only: [:id,:cpm,:wpm]}}) #status: :created, location: test
     else
       render json: test.errors#, status: :unprocessable_entity
     end
