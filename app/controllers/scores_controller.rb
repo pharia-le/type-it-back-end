@@ -3,28 +3,19 @@ class ScoresController < ApplicationController
 
   def index
     scores = Score.all
-    options = {
-      include: [:test]
-    }
-    render json: ScoreSerializer.new(scores,options)
+    render json: scores.as_json(include: {test: {only: [:id,:name,:content]}})
   end
 
   def show
     score = Score.find(params[:id])
-    options = {
-      include: [:test]
-    }
-    render json: ScoreSerializer.new(score,options)
+    render json: score.as_json(include: {test: {only: [:id,:name,:content]}})
   end
 
   def create
     score = Score.new(score_params)
 
     if score.save
-      options = {
-        include: [:test]
-      }
-      render json: ScoreSerializer.new(score,options)#, status: :created, location: score
+      render json: score.as_json(include: {test: {only: [:id,:name,:content]}})#, status: :created, location: score
     else
       render json: score.errors#, status: :unprocessable_entity
     end
@@ -32,10 +23,7 @@ class ScoresController < ApplicationController
 
   def update
     if score.update(score_params)
-      options = {
-        include: [:test]
-      }
-      render json: ScoreSerializer.new(score,options)
+      render json: score.as_json(include: {test: {only: [:id,:name,:content]}})
     else
       render json: score.errors#, status: :unprocessable_entity
     end
