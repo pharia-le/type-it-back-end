@@ -21,6 +21,6 @@ class ScoresController < ApplicationController
 
   private
     def score_params
-      params.require(:score).permit(:wpm, :cpm, :test_id)
+      params.require(:score).permit(:wpm, :cpm, :accuracy, :test_id)
     end
 end
