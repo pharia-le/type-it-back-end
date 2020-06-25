@@ -18,6 +18,15 @@ class TestsController < ApplicationController
     end
   end
 
+  def update
+    @test = Test.find_by_id(params[:id])
+    if @test.update(test_params)
+      render json: @test.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy]}})
+    else
+      render json: @test.errors
+    end
+  end
+
   private
 
     def test_params
