@@ -1,18 +1,18 @@
 class TestsController < ApplicationController
   def index
     @tests = Test.all
-    render json: @tests.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy]}})
+    render json: @tests.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy,:errors_count]}})
   end
 
   def show
     @test = Test.find_by_id(params[:id])
-    render json: @test.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy]}})
+    render json: @test.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy,:errors_count]}})
   end
   
   def create
     @test = Test.new(test_params)
     if test.save
-      render json: @test.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy]}})
+      render json: @test.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy,:errors_count]}})
     else
       render json: @test.errors
     end
@@ -21,7 +21,7 @@ class TestsController < ApplicationController
   def update
     @test = Test.find_by_id(params[:id])
     if @test.update(test_params)
-      render json: @test.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy]}})
+      render json: @test.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy,:errors_count]}})
     else
       render json: @test.errors
     end
