@@ -1,44 +1,26 @@
 class TestsController < ApplicationController
-  # before_action :set_test, only: [:show]
-
   def index
-    tests = Test.all
-    render json: tests.as_json(include: {scores: {only: [:id,:cpm,:wpm]}})
+    @tests = Test.all
+    render json: @tests.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy]}})
   end
 
   def show
-    test = Test.find_by_id(params[:id])
-    render json: test.as_json(include: {scores: {only: [:id,:cpm,:wpm]}})
+    @test = Test.find_by_id(params[:id])
+    render json: @test.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy]}})
   end
   
-
   def create
-    test = Test.new(test_params)
+    @test = Test.new(test_params)
     if test.save
-      render json: test.as_json(include: {scores: {only: [:id,:cpm,:wpm]}}) #status: :created, location: test
+      render json: @test.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy]}})
     else
-      render json: test.errors#, status: :unprocessable_entity
+      render json: @test.errors
     end
   end
 
-  # def update
-  #   if test.update(test_params)
-  #     render json: test
-  #   else
-  #     render json: test.errors#, status: :unprocessable_entity
-  #   end
-  # end
-
-  # def destroy
-  #   test.destroy
-  # end
-
   private
-    # def set_test
-    #   test = Test.find_by_id(params[:id])
-    # end
 
     def test_params
-      params.require(:test).permit(:name, :content)
+      params.require(:test).permit(:id,:title,:author,:content,:likes)
     end
 end
