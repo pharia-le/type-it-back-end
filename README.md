@@ -65,6 +65,6 @@ When contributing to this repository, please first discuss the change you wish t
 
 This project is licensed under the MIT Open Source Public License.
 
-## Back End
+## Front End
 
 Front-end is [here](https://github.com/pharia-le/type-it-front-end)
