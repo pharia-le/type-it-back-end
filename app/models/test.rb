@@ -4,5 +4,5 @@ class Test < ApplicationRecord
     validates :content, presence: true
     validates :content, length: { minimum: 500 }
     validates :content, length: { maximum: 2000 }
-    default_scope { order(title: :asc) }
+    default_scope { order(likes: :desc) }
 end
