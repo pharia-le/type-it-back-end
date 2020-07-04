@@ -8,15 +8,6 @@ class TestsController < ApplicationController
     @test = Test.find_by_id(params[:id])
     render json: @test.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy,:errors_count]}})
   end
-  
-  def create
-    @test = Test.new(test_params)
-    if test.save
-      render json: @test.as_json(include: {scores: {only: [:id,:cpm,:wpm,:accuracy,:errors_count]}})
-    else
-      render json: @test.errors
-    end
-  end
 
   def update
     @test = Test.find_by_id(params[:id])
