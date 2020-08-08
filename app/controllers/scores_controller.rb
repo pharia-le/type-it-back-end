@@ -1,21 +1,20 @@
 class ScoresController < ApplicationController
   def index
-    @scores = Score.all
-    render json: @scores.as_json(include: {test: {only: [:id,:title,:author,:content,:likes,:errors_count]}})
+    scores = Score.all
+    render json: scores
   end
 
   def show
-    @score = Score.find(params[:id])
-    render json: @score.as_json(include: {test: {only: [:id,:title,:author,:content,:likes,:errors_count]}})
+    score = Score.find(params[:id])
+    render json: score
   end
 
   def create
-    @score = Score.new(score_params)
+    score = Score.new(score_params)
 
-    if @score.save
-      render json: @score.as_json(include: {test: {only: [:id,:title,:author,:content,:likes,:errors_count]}})
-    else
-      render json: @score.errors
+    if score.save
+      render json: score
+      render json: score.errors
     end
   end
 
