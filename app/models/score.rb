@@ -4,7 +4,4 @@ class Score < ApplicationRecord
   validates :wpm, :cpm, :accuracy, :errors_count, numericality: { only_integer: true }
   default_scope { order(created_at: :desc) }
 
-  def self.avg_wpm()
-    self.all.map {|s|s.wpm}.sum/self.all.length
-  end
 end
